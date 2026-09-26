@@ -16,7 +16,7 @@ A native Android app for reading fanfiction on [Archive of Our Own](https://arch
 | Content warnings: adult works show an interstitial page. | Send `view_adult=true` after the user confirms once in settings (off by default). |
 | Whole works can be fetched in one page (`?view_full_work=true`). | Online reading uses this where it's reasonable, then splits the page into chapters locally. |
 | Login uses a Rails form with a CSRF `authenticity_token` and session cookies. | Optional login with a persistent cookie jar. The password is never stored; only the session cookie, kept in EncryptedSharedPreferences. |
-| Google Play policy on mature user-generated content. | Distribute through GitHub Releases (and F-Droid later). Play Store is out of scope for now. |
+| Personal use only. | APK built by GitHub Actions and sideloaded; no store listing. |
 
 ## 3. Features by phase
 
@@ -100,7 +100,7 @@ Parsers are pure functions (`Document -> Model`). Their unit tests run against s
 4. **Reader** with settings and saved position.
 5. **Library and offline save**.
 6. **Update-check worker and notifications**, plus deep links.
-7. MVP release (signed APK on GitHub Releases).
+7. MVP release (signed APK built by CI, installed on the owner's phone).
 8. Phase 2 (login and account features).
 
 ## 8. Risks
@@ -109,10 +109,10 @@ Parsers are pure functions (`Document -> Model`). Their unit tests run against s
 - **Rate limiting or blocking.** Mitigations: the global limiter, caching, and no bulk crawling.
 - **Cloudflare or challenge pages.** Detect them, then fall back to an in-app WebView where the user completes the challenge, and share its cookies with OkHttp.
 
-## 9. Open questions for you
+## 9. Decisions
 
-1. Is login needed in the MVP, or is it fine for Phase 2?
-2. Is distribution via GitHub Releases / sideloading OK, or do you want to target the Play Store?
-3. Package name: `com.dryking.reader` unless you prefer another.
-4. minSdk 26 (Android 8.0, which covers about 97% of devices)?
-5. Anything from Phase 2/3 you want moved up, or anything missing?
+1. **Login**: not in the MVP; it comes in Phase 2.
+2. **Distribution**: personal use only. GitHub Actions builds the APK, and it is installed directly on the phone (sideloaded). There is no Play Store listing.
+3. **Package name**: `com.dryking.reader`.
+4. **minSdk**: 26. The owner's phone runs One UI 8.5, which is Android 16, so it is well above that.
+5. **UI**: follow the owner's existing Claude Design mockups when building the screens (milestone 3 onward).
