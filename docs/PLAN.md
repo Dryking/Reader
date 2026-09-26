@@ -84,6 +84,8 @@ A native Android app for reading fanfiction on [Archive of Our Own](https://arch
 :feature:settings
 ```
 
+For now, features live as packages inside `:app`. They move into `:feature:*` modules only if the app grows enough for that to pay off. `:core:database` and `:core:data` are added in milestone 5, and Hilt when the first screen needs injected dependencies. `:core:model` and `:core:ao3` are plain Kotlin (JVM) modules, so their tests run without an Android SDK.
+
 Parsers are pure functions (`Document -> Model`). Their unit tests run against saved AO3 HTML fixtures in `core/ao3/src/test/resources`.
 
 ## 6. Data model (core)
@@ -94,7 +96,7 @@ Parsers are pure functions (`Document -> Model`). Their unit tests run against s
 
 ## 7. Milestones
 
-1. **Skeleton**: Gradle project, modules, theme, empty navigation, and CI building a debug APK.
+1. **Skeleton** ✅: Gradle project, modules, theme, empty navigation, and CI building a debug APK.
 2. **AO3 client**: HTTP layer, rate limiter, and parsers for the work page, chapters and search results, with fixture tests.
 3. **Browse, search and work details** screens.
 4. **Reader** with settings and saved position.
